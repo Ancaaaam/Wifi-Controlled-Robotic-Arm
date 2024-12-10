@@ -1,0 +1,7 @@
+#notifications {
+    height: 200px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid #ddd;
+    padding: 5px;
+}
