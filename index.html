@@ -9,12 +9,18 @@
 <link rel="stylesheet" href="style.css">
 <script src="jquery.js"></script>
 <script src="myscript1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
 <body>
 
 <h1> <b> Browser controlled Robotic Arm with 4 servomotors </b> </h1>
+<td>
+	<button onclick="renderChart()" style="height:40px;">Arată graficul</button>
+	<canvas id="chartCanvas" style="display:none; margin-top: 10px;"></canvas>
+	<p>
+</td>	
 
 <div style="margin: 0; width:500px; height:80px;">
 	<form name="myform2" action="" method="GET">
@@ -25,10 +31,11 @@
 
 <div style="position: absolute; right: 10px; top: 400px; width: 300px; border: 1px solid #ccc; padding: 10px;">
     <h3>Notificări</h3>
-    <div id="notifications" >
+    <div id="notifications">
         <p>Se vor afișa notificările despre comenzi și resetări.</p>
-    </div>
+    </div>	
 </div>
+
 
 <table style="margin: 0; position: relative; top: 20px; left: 0px">
 	<tr>

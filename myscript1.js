@@ -2,6 +2,13 @@ $.ajaxSetup({timeout:7000});
 
 var step = 0;
 
+let commandStats = {
+    success: 0,
+    timeout: 0,
+    reset: 0
+};
+
+
 $.wait = function(ms) {
     var defer = $.Deferred();
     setTimeout(function() { defer.resolve(); }, ms);
@@ -69,7 +76,46 @@ function addNotification(message) {
     newNotification.textContent = `${new Date().toLocaleTimeString()}: ${message}`;
     notificationArea.appendChild(newNotification);
     notificationArea.scrollTop = notificationArea.scrollHeight; // Scroll automat la ultima notificare
+
+    // Track stats
+    if (message.includes("trimisa cu succes")) commandStats.success++;
+    if (message.includes("Eroare la trimiterea comenzii")) commandStats.timeout++;
+    if (message.includes("Hardware-ul a detectat un reset")) commandStats.reset++;
 }
+
+function renderChart() {
+    console.log("hehe");
+    const chartCanvas = document.getElementById('chartCanvas');
+    chartCanvas.style.display = chartCanvas.style.display === 'none' ? 'block' : 'none';
+
+    if (!chartCanvas._chartInstance) {
+        const ctx = chartCanvas.getContext('2d');
+        chartCanvas._chartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Succes', 'Timeout', 'Reset'],
+                datasets: [{
+                    label: 'Statistici Comenzi',
+                    data: [commandStats.success, commandStats.timeout, commandStats.reset],
+                    backgroundColor: ['#4caf50', '#f44336', '#2196f3']
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    } else {
+        chartCanvas._chartInstance.data.datasets[0].data = [commandStats.success, commandStats.timeout, commandStats.reset];
+        chartCanvas._chartInstance.update();
+    }
+    document.getElementById('toggleChartButton');
+
+}
+
+
 
 //update text under scroll bars
 function updateTextInput1(val) {
