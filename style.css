@@ -1,0 +1,10 @@
+#notifications {
+    height: 200px;
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+#chartCanvas {
+    width: 100%;
+    height: 200px;
+}
+
